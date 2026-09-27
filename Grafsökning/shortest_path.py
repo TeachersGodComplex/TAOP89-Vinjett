@@ -67,6 +67,35 @@ def dijkstra(graph, start, end):
 
     return path, dist[end]
 
+
+# -------------------------------------------------------
+# DFS med backtracking – längsta vägen från start till end
+# -------------------------------------------------------
+def longest_path(graph, start, end):
+    best_cost = [-float('inf')]
+    best_path = [[]]
+ 
+    def dfs(node, visited, path, cost):
+        if node == end:
+            if cost > best_cost[0]:
+                best_cost[0] = cost
+                best_path[0] = path[:]
+            return
+        for neighbor, weight in graph.get(node, []):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                path.append(neighbor)
+                dfs(neighbor, visited, path, cost + weight)
+                path.pop()
+                visited.remove(neighbor)
+ 
+    dfs(start, {start}, [start], 0)
+ 
+    if best_cost[0] == -float('inf'):
+        return None, float('inf')
+    return best_path[0], best_cost[0]
+
+
 # -------------------------------------------------------
 # Kör programmet
 # -------------------------------------------------------
