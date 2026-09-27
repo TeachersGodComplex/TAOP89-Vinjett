@@ -17,7 +17,6 @@ set_silent(model)  # Kommentera bort för att se solverns loggar
     sum(x[i,j] for i in I) == d[j])
 
 # Bivillkor: egenskaper hos produkten inom angivet intervall 
-# Eftersom sum_i x[i,j] = d[j] skrivs villkoret som: b1[k,j]*d[j] <= sum_i a[i,k]*x[i,j] <= b2[k,j]*d[j]
 @constraint(model, egenskap_lo[j in J, k in K],
     sum(a[i,k] * x[i,j] for i in I) >= b1[k,j] * d[j])
 
